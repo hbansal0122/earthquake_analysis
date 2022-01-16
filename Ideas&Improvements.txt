@@ -1,0 +1,22 @@
+1: Use Typescript.
+
+2: Write end-to-end cypress test: This may be useful to reduce bugs and have end-to-end testing. 
+Cypress can be beneficial when we have more than one SPA app component.
+
+3: Use dotenv for constants, URLs, and credentials. It can be helpful to handle various environments like development,
+staging and production.
+
+4: Include logging. Logging can be helpful to debug. To extend even further, we can also include structured logging.
+
+5: Show default 404 not found or error page.
+
+7: Implement ngnix to host on AWS EC2
+
+8: Implement timer for api call
+
+9: Create good looking view with more information
+
+10: Divide the project in sub files
+
+
+
