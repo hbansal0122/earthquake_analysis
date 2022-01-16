@@ -1,0 +1,10 @@
+runtime: nodejs
+env: flex
+
+# we can increase the values for more load but to save money I am using minimal resources. 
+manual_scaling:
+  instances: 1
+resources:
+  cpu: 1
+  memory_gb: 0.5
+  disk_size_gb: 10

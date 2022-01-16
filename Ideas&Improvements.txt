@@ -10,13 +10,5 @@ staging and production.
 
 5: Show default 404 not found or error page.
 
-7: Implement ngnix to host on AWS EC2
-
-8: Implement timer for api call
-
-9: Create good looking view with more information
-
-10: Divide the project in sub files
-
-
+6: Divide the project in sub files
 

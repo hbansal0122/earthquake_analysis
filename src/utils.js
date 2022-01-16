@@ -6,4 +6,4 @@ export const initialState = {
     error: null,
   };
 
-export const delay = 500;
+export const delay = 60;

@@ -1,5 +1,6 @@
 import { GoogleMap, Marker, InfoWindow } from '@react-google-maps/api';
 import { useEffect, useState } from 'react';
+import dateFormat from "dateformat";
 
 const Map = ({ payload }) => {
 
@@ -16,9 +17,8 @@ const Map = ({ payload }) => {
             title: value.properties.title,
             time: value.properties.time,
             type: value.properties.type,
-            tsunami: value.properties.tsunami === 0 ? false: true,
             magnitude: value.properties.mag,
-            depth: value.geometry.coordinates[2] ? value.geometry.coordinates[2]: false,
+            depth: value.geometry.coordinates[2] ? value.geometry.coordinates[2] : false,
             location: {
               "lng": value.geometry.coordinates[0],
               "lat": value.geometry.coordinates[1]
@@ -31,20 +31,17 @@ const Map = ({ payload }) => {
       getLocations();
   }, [payload])
 
-
-  const mapStyles = {
-    width: "100vh",
-    height: "70vh",
-    margin: "0 auto",
-    top: "10vh"
-  };
-
   const onSelect = item => {
     setSelected(item);
   }
   return (
     <GoogleMap
-      mapContainerStyle={mapStyles}
+      mapContainerStyle={{
+        width: "100vh",
+        height: "70vh",
+        margin: "0 auto",
+        top: "10vh"
+      }}
       zoom={2}
       center={center}
     >
@@ -62,15 +59,23 @@ const Map = ({ payload }) => {
             position={selected.location}
             clickable={true}
             onCloseClick={() => setSelected({})}
-            onClick={() => setCenter({ lat: selected.location.lat, lng: selected.location.lng})}
+            onClick={() => setCenter({ lat: selected.location.lat, lng: selected.location.lng })}
           >
             <div>
-              <p>{selected.title}</p>
-              <p>{`Earthquake time: ${JSON.stringify(new Date(selected.time))}`}</p>
-              <p>{`Type of catastrophe: ${selected.type}`}</p>
-              <p>{`Magnitude of the earthquake is ${selected.magnitude}`}</p>
-              <p>{selected.tsunami && `This is also a ${selected.tsunami}`}</p>
-              <p>{selected.depth && `Depth of catastrophe:  ${selected.depth}`}</p>
+              <p><strong>{selected.title}</strong></p>
+              <p>Location: {selected.location.lat}, {selected.location.lng}</p>
+              <p>Time: {dateFormat(new Date(selected.time), "dddd, mmmm dS, yyyy, h:MM:ss TT")}</p>
+              <p>Magnitude: <span style={{
+                color: selected.magnitude >= 5 ?
+                  "#ff0000" : selected.magnitude <= 2 ?
+                    "#ec9706" : "#ed7014"
+              }}>
+                <strong>
+                  {selected.magnitude}
+                </strong>
+              </span>
+              </p>
+              <p>{selected.depth && `Depth:  ${selected.depth} Km`}</p>
             </div>
           </InfoWindow>
         )
@@ -78,4 +83,6 @@ const Map = ({ payload }) => {
     </GoogleMap>
   )
 }
+
+
 export default Map;

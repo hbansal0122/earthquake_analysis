@@ -1,8 +1,9 @@
 import { useEffect, useReducer, useState } from "react";
+import Loader from "react-js-loader";
 import { initialState, backendURL, delay } from "./utils";
 import { ACTIONS } from "./reducer/actions";
 import { reducer } from "./reducer/reducer";
-import Map from "./Map";
+import Map from "./Components/Map";
 
 const App = () => {
 
@@ -30,13 +31,13 @@ const App = () => {
     return () => clearInterval(intervalId);
   }, [timeLeft]);
 
-  console.log(earthquakeData)
+
   if (error) return <div>Failed to get the data {error}</div>
-  if (loading) return <div>Loading...</div>
+  if (loading) return <Loader type="box-rotate-z" bgColor={"#000"} color={'#FFFFFF'} size={100} />
   return (
     <div>
-      <h1 style={classes.title}>This is a real live view of earthquakes on earth. <br />
-        Website will get updated in {timeLeft} seconds</h1>
+      <h1 style={classes.title}>Earthquakes live view</h1><br />
+      <h2 style={classes.title}>(will be refreshed in {timeLeft} sec)</h2>
       <Map payload={earthquakeData} />
     </div>
   );
@@ -44,7 +45,8 @@ const App = () => {
 
 const classes = {
   title: {
-    textAlign: "center"
+    textAlign: "center",
+    margin: 0
   }
 };
 
